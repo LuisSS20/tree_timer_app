@@ -30,11 +30,11 @@ jobs:
       - name: List directory
         run: dir
         
-      - name: Adding Windows support to flutter project.
+      - name: Adding Windows support to flutter project
         run: flutter config --enable-windows-desktop
         
-      - name: Adding support to Linux, MacOS and Windows platforms.
-        run: flutter create --platform=windows,macos,linux .
+      - name: Adding support to Windows platform
+        run: flutter create --platform=windows .
         
       - name: Build windows app with flutter
         run: flutter build windows
@@ -85,10 +85,10 @@ jobs:
       - name: Run flutter doctor
         run: flutter doctor
 
-      - name: Adding Linux support to flutter project.
+      - name: Adding Linux support to flutter project
         run: flutter config --enable-linux-desktop
         
-      - name: Adding support to Linux, MacOS and Windows platforms.
+      - name: Adding support to Linux
         run: flutter create --platform=linux .
         
       - name: Build linux app with flutter
