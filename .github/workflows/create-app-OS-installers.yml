@@ -76,6 +76,9 @@ jobs:
       - name: List directory
         run: ls
 
+      - name: Update linux repos
+        run: sudo apt-get update  
+
       - name: Installing libraries that are necessaries
         run: sudo apt-get install -y clang cmake ninja-build libgtk-3-dev libblkid1 liblzma5
 
