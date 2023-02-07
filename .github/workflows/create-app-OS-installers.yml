@@ -57,34 +57,34 @@ jobs:
           name: Installers
           path: installers/
 
-    Create-Linux-Installer:
-      runs-on: ubuntu-latest
-      steps:
-        - run: echo "The branch where this action it is running is ${{ github.ref }}."
+  Create-Linux-Installer:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The branch where this action it is running is ${{ github.ref }}."
+      
+      - name: Check out repository code
+        uses: actions/checkout@v3.3.0
         
-        - name: Check out repository code
-          uses: actions/checkout@v3.3.0
-          
-        - run: echo "The branch where this action it is running is ${{ github.ref }}."
+      - run: echo "The branch where this action it is running is ${{ github.ref }}."
+      
+      - name: Getting Flutter action
+        uses: subosito/flutter-action@v2.8.0
         
-        - name: Getting Flutter action
-          uses: subosito/flutter-action@v2.8.0
-          
-        - name: Checking if Flutter it is installed
-          run: flutter --version
-          
-        - name: List directory
-          run: ls
+      - name: Checking if Flutter it is installed
+        run: flutter --version
+        
+      - name: List directory
+        run: ls
 
-        - name: Installing libraries that are necessaries
-          run: sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          
-        - name: Adding Linux support to flutter project.
-          run: flutter config --enable-linux-desktop
-          
-        - name: Adding support to Linux, MacOS and Windows platforms.
-          run: flutter create --platform=linux .
-          
-        - name: Build linux app with flutter
-          run: flutter build linux
+      - name: Installing libraries that are necessaries
+        run: sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+        
+      - name: Adding Linux support to flutter project.
+        run: flutter config --enable-linux-desktop
+        
+      - name: Adding support to Linux, MacOS and Windows platforms.
+        run: flutter create --platform=linux .
+        
+      - name: Build linux app with flutter
+        run: flutter build linux
 
