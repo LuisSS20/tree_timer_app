@@ -94,12 +94,14 @@ jobs:
       - name: Build linux app with flutter
         run: flutter build linux
 
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "LuisSS20"
-          git config --global user.email "luissoriano@correo.ugr.es"
+      - name: List all files from build/linux
+        run: ls -R build/linux
+      # - name: Commit and push changes
+      #   run: |
+      #     git config --global user.name "LuisSS20"
+      #     git config --global user.email "luissoriano@correo.ugr.es"
 
-          git add build/linux/*
-          git commit -m "Add new linux app"
-          git push
+      #     git add build/linux/*
+      #     git commit -m "Add new linux app"
+      #     git push
 
