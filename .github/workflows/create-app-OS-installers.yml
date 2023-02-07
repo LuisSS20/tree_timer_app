@@ -79,6 +79,9 @@ jobs:
       - name: Installing libraries that are necessaries
         run: sudo apt-get install -y clang cmake ninja-build libgtk-3-0 libblkid1 liblzma5
 
+      - name: Run flutter doctor
+        run: flutter doctor
+
       - name: Adding Linux support to flutter project.
         run: flutter config --enable-linux-desktop
         
