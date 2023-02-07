@@ -77,8 +77,8 @@ jobs:
         run: ls
 
       - name: Installing libraries that are necessaries
-        run: sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-        
+        run: sudo apt-get install -y libgtk-3-0 libblkid1 liblzma5
+
       - name: Adding Linux support to flutter project.
         run: flutter config --enable-linux-desktop
         
