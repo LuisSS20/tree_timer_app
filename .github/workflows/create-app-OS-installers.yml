@@ -60,7 +60,7 @@ jobs:
     Create-Linux-Installer:
     runs-on: ubuntu-latest
     steps:
-     - run: echo "The branch where this action it is running is ${{ github.ref }}."
+      - run: echo "The branch where this action it is running is ${{ github.ref }}."
       
       - name: Check out repository code
         uses: actions/checkout@v3.3.0
