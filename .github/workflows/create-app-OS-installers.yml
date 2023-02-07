@@ -5,7 +5,7 @@ env:
 run-name: Creation of OS installers
 on: [push]
 jobs:
-  Create-Windows-Installer:
+  Create_Windows_Installer:
     runs-on: windows-latest
     steps:
       - run: echo "The branch where this action it is running is ${{ github.ref }}."
@@ -57,7 +57,7 @@ jobs:
           name: Installers
           path: installers/
 
-    Create-Linux-Installer:
+    Create_Linux_Installer:
     runs-on: ubuntu-latest
     steps:
       - run: echo "The branch where this action it is running is ${{ github.ref }}."
