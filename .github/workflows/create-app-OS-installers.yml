@@ -58,7 +58,7 @@ jobs:
           path: installers/
 
     Create-Linux-Installer:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
      - run: echo "The branch where this action it is running is ${{ github.ref }}."
       
