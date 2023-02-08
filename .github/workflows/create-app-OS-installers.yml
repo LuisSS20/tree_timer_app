@@ -121,8 +121,8 @@ jobs:
           git config --global user.name "LuisSS20"
           git config --global user.email "luissoriano@correo.ugr.es"
 
-          git add build/linux/x64/release/bundle/*
-          git commit -m "Add new linux app"
+          git add installers/TreeTimerAppLinuxInstaller.run
+          git commit -m "Add new windows installer"
           git pull
           git push
 
@@ -132,7 +132,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3.3.0
-        
+
       - name:  Upload a Build Artifact with the windows installer compiled
         uses: actions/upload-artifact@v3.1.2
         with:
