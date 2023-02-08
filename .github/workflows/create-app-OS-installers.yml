@@ -47,7 +47,7 @@ jobs:
           git config --global user.name "LuisSS20"
           git config --global user.email "luissoriano@correo.ugr.es"
 
-          git add installers/*
+          git add installers/TreeTimerAppWindowsInstaller.exe
           git commit -m "Add new windows installer"
           git push
         
@@ -96,12 +96,37 @@ jobs:
 
       - name: List all files from build/linux
         run: ls -R build/linux
+
+      - name: Preparing linux installer files
+        run: |
+          mkdir config_files
+          cp -r build/linux/x64/release/bundle/* config_files
+          tar -cvf payload.tar -C config_files/ .
+
+          mkdir config_stage
+          cp payload.tar config_stage/
+
+          touch config_stage/install.sh
+          chmod +x config_stage/install.sh
+          echo -e "#!/bin/bash\n\ntar -xvf ./payload.tar -C "$HOME" && echo 'Config files extracted successfully!'"
+          cat config_stage/install.sh
+
+      - name: Create linux installer
+        run: |
+          sudo apt-get install -y makeself
+          makeself --sha256 --target ../installers ./config_stage  TreeTimerAppLinuxInstaller.run "Flutter App installer for Linux" ./install.sh
+
+      - name: Checking
+        run: |
+          ls
+          ls ../
+
       # - name: Commit and push changes
       #   run: |
       #     git config --global user.name "LuisSS20"
       #     git config --global user.email "luissoriano@correo.ugr.es"
 
-      #     git add build/linux/*
+      #     git add build/linux/x64/release/bundle/*
       #     git commit -m "Add new linux app"
       #     git push
 
