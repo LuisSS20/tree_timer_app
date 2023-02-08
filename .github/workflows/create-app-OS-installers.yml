@@ -117,7 +117,7 @@ jobs:
       - name: Checking
         run: |
           ls
-        - name: Checking2
+      - name: Checking2
         run: |
           ls installers/
 
