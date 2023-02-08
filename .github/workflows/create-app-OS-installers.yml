@@ -49,13 +49,8 @@ jobs:
 
           git add installers/TreeTimerAppWindowsInstaller.exe
           git commit -m "Add new windows installer"
+          git pull
           git push
-        
-      - name:  Upload a Build Artifact with the windows installer compiled
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: Installers
-          path: installers/
 
   Create-Linux-Installer:
     runs-on: ubuntu-latest
@@ -112,6 +107,7 @@ jobs:
         run: |
           sudo apt-get install -y makeself
           makeself --sha256 --target /installers ./config_stage  TreeTimerAppLinuxInstaller.run "Flutter App installer for Linux" ./install.sh
+          cp TreeTimerAppLinuxInstaller.run installers/
 
       - name: Checking
         run: |
@@ -120,12 +116,28 @@ jobs:
         run: |
           ls installers/
 
-      # - name: Commit and push changes
-      #   run: |
-      #     git config --global user.name "LuisSS20"
-      #     git config --global user.email "luissoriano@correo.ugr.es"
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "LuisSS20"
+          git config --global user.email "luissoriano@correo.ugr.es"
 
-      #     git add build/linux/x64/release/bundle/*
-      #     git commit -m "Add new linux app"
-      #     git push
+          git add build/linux/x64/release/bundle/*
+          git commit -m "Add new linux app"
+          git pull
+          git push
+
+  Upload-Artifacts:
+    needs: [Create-Windows-Installer, Create-Linux-Installer]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3.3.0
+        
+      - name:  Upload a Build Artifact with the windows installer compiled
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: Installers
+          path: installers/
+
+
 
