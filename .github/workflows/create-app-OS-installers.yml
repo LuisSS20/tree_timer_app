@@ -96,7 +96,7 @@ jobs:
 
           touch config_stage/install.sh
           chmod +x config_stage/install.sh
-          echo -e "#!/bin/bash\n\nmkdir -p $HOME/TreeTimerAppLinux\n\ntar -xvf ./payload.tar -C $HOME && echo 'Config files extracted successfully!'" >> config_stage/install.sh
+          echo -e '#!/bin/bash\n\nmkdir -p '$HOME'/TreeTimerAppLinux\n\ntar -xvf ./payload.tar -C $HOME && echo 'Config files extracted successfully!'' >> config_stage/install.sh
           cat config_stage/install.sh
 
       - name: Create linux installer
