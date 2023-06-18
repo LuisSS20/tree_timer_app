@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:camera/camera.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
@@ -20,7 +19,6 @@ import 'package:tree_inspection_kit_app/models/project.dart';
 import 'package:tree_inspection_kit_app/models/tree_data_sheet.dart';
 import 'package:tree_inspection_kit_app/models/tree_specie.dart';
 import 'package:tree_inspection_kit_app/models/valid_response.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class TreeDataSheetScreen extends StatefulWidget{
@@ -92,7 +90,7 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
 
   // Function which is executed when a data sheet is going to be deleted
   void onDeleted() async {
-    bool? deleteDataSheet = await showConfirmDialog(context, AppLocalizations.of(context)!.deleteDataSheet, "");
+    bool? deleteDataSheet = await showConfirmDialog(context, "¿Desea borrar la ficha de datos del árbol?", "");
     if(deleteDataSheet == true && widget.treeDataSheet != null){
       Response? res = await treeDataSheetService.deleteTreeDataSheet(context: context, treeDataSheet: widget.treeDataSheet);
       ValidResponse validResponse = ValidResponse(res!);
@@ -110,7 +108,7 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
       if(isEditing == true){
         // Save form values
         _formKey.currentState!.save();
-        bool? saveDataSheet = await showConfirmDialog(context, AppLocalizations.of(context)!.saveDataSheet, "");
+        bool? saveDataSheet = await showConfirmDialog(context, "¿Desea guardar la ficha de datos del árbol?", "");
         if(saveDataSheet == true){
           // Save onto treeDataSheet variable the form values
           widget.treeDataSheet = TreeDataSheet(
@@ -208,7 +206,7 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                   // Decimal keyboard type
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
-                    labelText: '${AppLocalizations.of(context)!.dist} (cm)',
+                    labelText: 'Distancia (cm)',
                   ),
                   onChanged: (value) {
                     // We need to parse the value string to double type
@@ -220,7 +218,7 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                   // Decimal keyboard type
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
-                    labelText: '${AppLocalizations.of(context)!.time} (µs)',
+                    labelText: 'Tiempo (µs)',
                   ),
                   onChanged: (value) {
                     // We need to parse the value string to double type
@@ -237,7 +235,7 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                       Navigator.pop(context);
                     });
                   }  ,
-                  child: Text(AppLocalizations.of(context)!.add),
+                  child: Text('Agregar'),
                 )
               ],
             ),
@@ -298,35 +296,32 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                   TextFormField(
                     readOnly: isEditing ? false : true,
                     initialValue: widget.treeDataSheet.specific_tree_id,
-                    decoration: InputDecoration(
-                      labelText: '${AppLocalizations.of(context)!.treeId} *',
+                    decoration: const InputDecoration(
+                      labelText: 'ID de árbol',
                     ),
                     onSaved: (value) {
                       widget.specificTreeIdValue = value!;
                     },
                     validator: (value) {
                       if(value!.isEmpty){
-                        return AppLocalizations.of(context)!.requiredField;
+                        return 'Este campo es obligatorio';
                       }
                       return null;
                     },
                   ),
                   SizedBox(height: 15,),
-                  MouseRegion(
-                    child: TextFormField(
-                      maxLines: 2,
-                      readOnly: true,
-                      controller: treeSpecieController,
-                      decoration: InputDecoration(
-                        labelText: '${AppLocalizations.of(context)!.treeSpecie} *',
-                      ),
-                      validator: (value) {
-                        if(value!.isEmpty){
-                          return AppLocalizations.of(context)!.requiredField;
-                        }
-                        return null;
-                      },
+                  TextFormField(
+                    readOnly: true,
+                    controller: treeSpecieController,
+                    decoration: const InputDecoration(
+                      labelText: 'Especie de árbol',
                     ),
+                    validator: (value) {
+                      if(value!.isEmpty){
+                        return 'Este campo es obligatorio';
+                      }
+                      return null;
+                    },
                   ),
                   isEditing ? Container(
                     width: double.infinity,
@@ -345,20 +340,20 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                           widget.selectedSpecie = selectedSpecie;
                         }
                         // We set the value of tree specie text form field
-                        treeSpecieController.value = widget.selectedSpecie != null ? TextEditingValue(text: '${widget.selectedSpecie?.name}\n(${AppLocalizations.of(context)!.propagationVelocity} ${widget.selectedSpecie?.description})') : const TextEditingValue(text: '');
+                        treeSpecieController.value = widget.selectedSpecie != null ? TextEditingValue(text: '${widget.selectedSpecie?.name} (${widget.selectedSpecie?.description})') : const TextEditingValue(text: '');
                       },
-                      child: Text(AppLocalizations.of(context)!.selectTreeSpecie)
+                      child: const Text('Seleccionar especie de árbol')
                     ),
                   ) : const SizedBox(height: 80,),
                   const SizedBox(height: 70,),
-                  Center(child: Text(AppLocalizations.of(context)!.measurements, style:  TextStyle(fontWeight: FontWeight.bold),)),
+                  const Center(child: Text("Mediciones", style:  TextStyle(fontWeight: FontWeight.bold),)),
                   const SizedBox(height: 25,),
                   isEditing ? Container(
                     width: double.infinity,
                     child: TextButton(
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.grey.shade200)),
                       onPressed: _showAddItemDialog,
-                      child: Text(AppLocalizations.of(context)!.addMeasure)
+                      child: const Text("Añadir medición")
                     ),
                   ) : SizedBox(),
                   widget.treeDataSheet.measurements != null && widget.treeDataSheet.measurements!.isNotEmpty
@@ -371,7 +366,7 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                       initialValue: widget.treeDataSheet.description,
                       maxLines: 3,
                       decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.treeNotes,
+                        labelText: 'Notas de árbol',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -382,7 +377,7 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  Container( child: Center(child: Text(AppLocalizations.of(context)!.image, style:  TextStyle(fontWeight: FontWeight.bold),))),
+                  Container( child: Center(child: Text("Imagen", style:  TextStyle(fontWeight: FontWeight.bold),))),
                   isEditing ? Container(
                     padding: EdgeInsets.only(bottom: 20),
                     width: double.infinity,
@@ -390,7 +385,7 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.grey.shade200)),
                       // If button pressed then open camera
                       onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CustomCamera(onSaved: _saveImage,)),);},
-                      child: Text(AppLocalizations.of(context)!.addImage)
+                      child: const Text("Añadir imagen")
                     ),
                   ) : Container(padding: EdgeInsets.only(bottom: 25),),
                   // If user loads an image show into screen, if not show url image if is not null or empty
@@ -406,14 +401,14 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                           )
                       ) : const SizedBox(),
                   const SizedBox(height: 20,),
-                  Center(child: Text(AppLocalizations.of(context)!.location, style: TextStyle(fontWeight: FontWeight.bold),)),
+                  const Center(child: Text("Localización", style: TextStyle(fontWeight: FontWeight.bold),)),
                   const SizedBox(height: 5,),
                   isEditing ? Container(
                     width: double.infinity,
                     child: TextButton(
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.grey.shade200)),
                       onPressed: getCurrentLocation,
-                      child: Text(AppLocalizations.of(context)!.setLocation)
+                      child: const Text('Establecer posición actual')
                     ),
                   ) : const SizedBox(),
                   const SizedBox(height: 10,),
@@ -424,7 +419,7 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
                     child: TextButton(
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.grey.shade200)),
                       onPressed: changeMapType,
-                      child: Text(AppLocalizations.of(context)!.changeMapType)
+                      child: const Text('Cambiar tipo de mapa')
                     ),
                   ),
                 ]
@@ -439,6 +434,5 @@ class _TreeDataSheetScreenState extends State<TreeDataSheetScreen>{
     );
   }
 }
-
 
 
