@@ -42,7 +42,7 @@ It is divided into two essential parts:
 
 #### Home screen
 
-<img src="img/principal_final.png" width="300"/>
+<img src="img/principal_final.png" width="600"/>
 
 #### Profile form
 
