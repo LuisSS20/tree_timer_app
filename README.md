@@ -34,16 +34,38 @@ It is divided into two essential parts:
 
 #### Login screen
 
-<img src="img/LoginScreenV1.PNG" alt="drawing" width="300"/>
+<img src="img/login.png" width="300"/>
 
 #### Register screen
 
-<img src="img/RegisterScreenV1.PNG" alt="drawing" width="300"/>
+<img src="img/registro.png" width="300"/>
 
 #### Home screen
 
-<img src="img/HomeScreenV1_1.PNG" alt="drawing" width="300"/>
-<img src="img/HomeScreenV1_2.PNG" alt="drawing" width="300"/>
+<img src="img/principal_final.png" width="300"/>
+
+#### Profile form
+
+<img src="img/perfil.png" alt="drawing" width="300"/>
+
+#### Bluetooth screen
+
+<img src="img/bluetooth.png" alt="drawing" width="300"/>
+
+#### Handbook screen
+
+<img src="img/manual.png" alt="drawing" width="300"/>
+
+#### Proyect screens
+
+<img src="img/dialogo_crear_proyecto.png"  width="300"/>
+<img src="img/proyecto.png" alt="drawing" width="300"/>
+
+#### Data sheet screen
+
+<img src="img/ficha.png" alt="drawing" width="300"/>
+<img src="img/mediciones_tabla.png" alt="drawing" width="300"/>
+<img src="img/mapa.png" alt="drawing" width="300"/>
 
    [Flutter]: [https://flutter.dev](https://flutter.dev)
    [NodeJS]: [https://nodejs.org/en/](https://nodejs.org/en/)
